@@ -39,14 +39,6 @@ requireRole = function (role) {
   };
 };
 
-console.log("--- DEBUGGING ENV ---");
-console.log("User:", process.env.DB_USER);
-console.log("Pass Length:", process.env.DB_PASS ? process.env.DB_PASS.length : "MISSING");
-console.log("Pass:", process.env.DB_PASS);
-console.log("Host:", process.env.DB_HOST);
-console.log("Port:", process.env.PORT);
-console.log("Name:", process.env.DB_NAME);
-console.log("---------------------");
 
 // MySQL connection
 const db = mysql.createConnection({
@@ -755,7 +747,7 @@ app.post('/forgot-password', async (req, res) => {
   });
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
