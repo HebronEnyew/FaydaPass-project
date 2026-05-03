@@ -86,7 +86,7 @@ function SuperAdminDashboard() {
   const fetchCompanies = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/admin/companies`);
+      const res = await axios.get(`${import.meta.env.REACT_APP_API_URL}/admin/companies`);
       setCompanies(res.data);
     } catch (err) {
       setError('Failed to fetch companies.');
@@ -96,7 +96,7 @@ function SuperAdminDashboard() {
 
   const fetchActivity = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/admin/activity-log`);
+      const res = await axios.get(`${import.meta.env.REACT_APP_API_URL}/admin/activity-log`);
       setActivity(res.data);
     } catch {}
   };
@@ -117,7 +117,7 @@ function SuperAdminDashboard() {
   const handleEditChange = e => setEditForm({ ...editForm, [e.target.name]: e.target.value });
   const handleEditSave = async () => {
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/admin/company/${editId}`, editForm);
+      await axios.put(`${import.meta.env.REACT_APP_API_URL}/admin/company/${editId}`, editForm);
       setEditId(null);
       setMessage('Company updated.');
       fetchCompanies();
@@ -129,7 +129,7 @@ function SuperAdminDashboard() {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this company?')) return;
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/admin/company/${id}`);
+      await axios.delete(`${import.meta.env.REACT_APP_API_URL}/admin/company/${id}`);
       setMessage('Company deleted.');
       fetchCompanies();
       fetchActivity();
@@ -144,7 +144,7 @@ function SuperAdminDashboard() {
   };
   const handleResetSave = async () => {
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/admin/company/${resetId}/reset-password`, { newPassword: resetPassword });
+      await axios.post(`${import.meta.env.REACT_APP_API_URL}/admin/company/${resetId}/reset-password`, { newPassword: resetPassword });
       setResetId(null);
       setResetPassword('');
       setMessage('Password reset.');
@@ -167,7 +167,7 @@ function SuperAdminDashboard() {
     Object.entries(registerForm).forEach(([k, v]) => data.append(k, v));
     if (registerLogo) data.append('company_logo', registerLogo);
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/registerCompany`, data);
+      await axios.post(`${import.meta.env.REACT_APP_API_URL}/registerCompany`, data);
       setMessage('Company registered successfully.');
       setRegisterForm({ username: '', phone: '', address: '', gmail: '', company_name: '', category: '', password: '', confirmPassword: '' });
       setRegisterLogo(null);
@@ -339,7 +339,7 @@ function SuperAdminDashboard() {
                 {detailsCompany.company_logo && (
                   <div style={{ marginTop: 10 }}>
                     <b>Logo:</b><br />
-                    <img src={`${import.meta.env.VITE_API_URL}/uploads/${detailsCompany.company_logo}`} alt="Logo" style={{height:60, borderRadius:8, marginTop:8}} />
+                    <img src={`${import.meta.env.REACT_APP_API_URL}/uploads/${detailsCompany.company_logo}`} alt="Logo" style={{height:60, borderRadius:8, marginTop:8}} />
                   </div>
                 )}
               </div>

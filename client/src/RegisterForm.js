@@ -44,7 +44,7 @@ function RegisterForm() {
     
     setIsChecking(prev => ({ ...prev, username: true }));
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/check-username/${username}`);
+      const response = await axios.get(`${import.meta.env.REACT_APP_API_URL}/check-username/${username}`);
       if (response.data.available === false) {
         setValidationErrors(prev => ({ ...prev, username: 'This username is already taken' }));
       } else {
@@ -63,7 +63,7 @@ function RegisterForm() {
     
     setIsChecking(prev => ({ ...prev, email: true }));
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/check-email/${email}`);
+      const response = await axios.get(`${import.meta.env.REACT_APP_API_URL}/check-email/${email}`);
       if (response.data.available === false) {
         setValidationErrors(prev => ({ ...prev, gmail: 'This email is already registered' }));
       } else {
@@ -98,7 +98,7 @@ function RegisterForm() {
     if (logo) data.append('company_logo', logo);
     
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/registerCompany`, data);
+      const res = await axios.post(`${import.meta.env.REACT_APP_API_URL}/registerCompany`, data);
       setMessage(res.data.message);
       // Clear form on success
       if (res.data.message.includes('successfully')) {
@@ -130,7 +130,7 @@ function RegisterForm() {
     
     // Try Super Admin login first
     try {
-      const adminRes = await axios.post(`${import.meta.env.VITE_API_URL}/admin/login`, { 
+      const adminRes = await axios.post(`${import.meta.env.REACT_APP_API_URL}/admin/login`, { 
         user: loginForm.user, 
         password: loginForm.password 
       });
@@ -149,7 +149,7 @@ function RegisterForm() {
 
     // Try Company Admin login
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { 
+      const res = await axios.post(`${import.meta.env.REACT_APP_API_URL}/login`, { 
         user: loginForm.user, 
         password: loginForm.password 
       });

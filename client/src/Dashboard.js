@@ -27,7 +27,7 @@ function Dashboard() {
     if (!company?.id) return;
     
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/listUsers`, { 
+      const res = await axios.get(`${import.meta.env.REACT_APP_API_URL}/listUsers`, { 
         params: { company_id: company.id } 
       });
       const count = res.data.length;
@@ -81,7 +81,7 @@ function Dashboard() {
           <div className="company-logo-section">
             {company?.company_logo ? (
               <img 
-                src={`${import.meta.env.VITE_API_URL}/uploads/${company.company_logo}`} 
+                src={`${import.meta.env.REACT_APP_API_URL}/uploads/${company.company_logo}`} 
                 alt={`${company.company_name} Logo`} 
                 className="company-logo"
                 onError={(e) => {

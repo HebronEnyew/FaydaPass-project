@@ -21,10 +21,10 @@ function CompanyProfile() {
     if (!companyId) return;
     setLoading(true);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/company/profile`, { params: { company_id: companyId } });
+      const res = await axios.get(`${import.meta.env.REACT_APP_API_URL}/company/profile`, { params: { company_id: companyId } });
       setCompany(res.data);
       setForm({ username: res.data.username || '', phone: res.data.phone || '', address: res.data.address || '', gmail: res.data.gmail || '', company_name: res.data.company_name || '', category: res.data.category || '', newPassword: '' });
-      setLogoPreview(res.data.company_logo ? `${import.meta.env.VITE_API_URL}/uploads/${res.data.company_logo}` : '');
+      setLogoPreview(res.data.company_logo ? `${import.meta.env.REACT_APP_API_URL}/uploads/${res.data.company_logo}` : '');
     } catch (e) {
       setMessage('Failed to load profile.');
     }
@@ -61,7 +61,7 @@ function CompanyProfile() {
       data.append('company_id', companyId);
       Object.entries(form).forEach(([k, v]) => { if (v !== undefined && v !== null) data.append(k, v); });
       if (logoFile) data.append('company_logo', logoFile);
-      await axios.put(`${import.meta.env.VITE_API_URL}/company/profile`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await axios.put(`${import.meta.env.REACT_APP_API_URL}/company/profile`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
       setMessage('Profile updated.');
       setEdit(false);
       setLogoFile(null);

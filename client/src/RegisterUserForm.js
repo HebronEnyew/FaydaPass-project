@@ -32,7 +32,7 @@ function RegisterUserForm({ onUserAdded }) {
         data.append('image', image);
       }
 
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/registerUser`, data);
+      const response = await axios.post(`${import.meta.env.REACT_APP_API_URL}/registerUser`, data);
       setMessage('User successfully registered!');
       setFormData({
         full_name: '',

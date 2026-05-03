@@ -13,7 +13,7 @@ function UserList({ onUserDeleted }) {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/listUsers`, { params: { company_id: company?.id } });
+      const res = await axios.get(`${import.meta.env.REACT_APP_API_URL}/listUsers`, { params: { company_id: company?.id } });
       setUsers(res.data);
     } catch (err) {
       setError('Failed to fetch users.');
@@ -30,7 +30,7 @@ function UserList({ onUserDeleted }) {
   const handleChange = (e) => setEditForm({ ...editForm, [e.target.name]: e.target.value });
   const saveEdit = async () => {
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/updateUser`, { company_id: company?.id, ...editForm });
+      await axios.put(`${import.meta.env.REACT_APP_API_URL}/updateUser`, { company_id: company?.id, ...editForm });
       setEditId(null);
       await fetchUsers();
     } catch (e) {
@@ -40,7 +40,7 @@ function UserList({ onUserDeleted }) {
   const deleteUser = async (id) => {
     if (!window.confirm('Delete this user?')) return;
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/deleteUser`, { params: { company_id: company?.id, id } });
+      await axios.delete(`${import.meta.env.REACT_APP_API_URL}/deleteUser`, { params: { company_id: company?.id, id } });
       await fetchUsers();
       
       // Call the callback to update user count
@@ -63,7 +63,7 @@ function UserList({ onUserDeleted }) {
         {users.map(user => (
           <div key={user.id} className="user-list-item">
             <div className="logo-section">
-              {user.image ? <img src={`${import.meta.env.VITE_API_URL}/uploads/${user.image}`} alt="User" /> : <span>No Image</span>}
+              {user.image ? <img src={`${import.meta.env.REACT_APP_API_URL}/uploads/${user.image}`} alt="User" /> : <span>No Image</span>}
             </div>
             
             <div className="form-grid">

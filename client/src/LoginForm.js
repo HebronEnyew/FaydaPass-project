@@ -18,7 +18,7 @@ function LoginForm() {
     setMessage('');
     // Try Super Admin login first (home login)
     try {
-      const adminRes = await axios.post(`${import.meta.env.VITE_API_URL}/admin/login`, { user: form.user, password: form.password });
+      const adminRes = await axios.post(`${import.meta.env.REACT_APP_API_URL}/admin/login`, { user: form.user, password: form.password });
       if (adminRes.data?.token) {
         localStorage.setItem('superadmin', JSON.stringify({ token: adminRes.data.token, admin: adminRes.data.admin }));
         axios.defaults.headers.common['Authorization'] = `Bearer ${adminRes.data.token}`;
@@ -29,7 +29,7 @@ function LoginForm() {
     } catch {}
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { user: form.user, password: form.password });
+      const res = await axios.post(`${import.meta.env.REACT_APP_API_URL}/login`, { user: form.user, password: form.password });
       setMessage(res.data.message);
       if (res.data.company) {
         localStorage.setItem('company', JSON.stringify(res.data.company));
@@ -55,7 +55,7 @@ function LoginForm() {
     setForgotLoading(true);
     setForgotMsg('');
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/forgot-password`, { user: forgotUser });
+      const res = await axios.post(`${import.meta.env.REACT_APP_API_URL}/forgot-password`, { user: forgotUser });
       setForgotMsg(`Your new password: ${res.data.newPassword}`);
     } catch (err) {
       setForgotMsg(err.response?.data?.message || 'Reset failed.');

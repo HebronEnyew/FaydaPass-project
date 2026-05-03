@@ -49,7 +49,7 @@ function SuperAdmin() {
   const fetchCompanies = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/admin/companies`);
+      const res = await axios.get(`${import.meta.env.REACT_APP_API_URL}/admin/companies`);
       setCompanies(res.data);
     } catch (err) {
       setError('Failed to fetch companies. Please login again.');
@@ -59,16 +59,16 @@ function SuperAdmin() {
 
   const fetchActivity = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/admin/activity-log`);
+      const res = await axios.get(`${import.meta.env.REACT_APP_API_URL}/admin/activity-log`);
       setActivity(res.data);
     } catch {}
   };
 
   const fetchAdminProfile = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/admin/profile`);
+      const res = await axios.get(`${import.meta.env.REACT_APP_API_URL}/admin/profile`);
       setProfile(p => ({ ...p, id: res.data.id, username: res.data.username || '', email: res.data.email || '' }));
-      if (res.data.avatar) setProfileImgUrl(`${import.meta.env.VITE_API_URL}/uploads/${res.data.avatar}`);
+      if (res.data.avatar) setProfileImgUrl(`${import.meta.env.REACT_APP_API_URL}/uploads/${res.data.avatar}`);
     } catch {}
   };
 
@@ -92,7 +92,7 @@ function SuperAdmin() {
   const handleEditChange = e => setEditForm({ ...editForm, [e.target.name]: e.target.value });
   const handleEditSave = async () => {
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/admin/company/${editId}`, editForm);
+      await axios.put(`${import.meta.env.REACT_APP_API_URL}/admin/company/${editId}`, editForm);
       setEditId(null);
       setMessage('Company updated.');
       fetchCompanies();
@@ -104,7 +104,7 @@ function SuperAdmin() {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this company?')) return;
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/admin/company/${id}`);
+      await axios.delete(`${import.meta.env.REACT_APP_API_URL}/admin/company/${id}`);
       setMessage('Company deleted.');
       fetchCompanies();
       fetchActivity();
@@ -119,7 +119,7 @@ function SuperAdmin() {
   };
   const handleResetSave = async () => {
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/admin/company/${resetId}/reset-password`, { newPassword: resetPassword });
+      await axios.post(`${import.meta.env.REACT_APP_API_URL}/admin/company/${resetId}/reset-password`, { newPassword: resetPassword });
       setResetId(null);
       setResetPassword('');
       setMessage('Password reset.');
@@ -142,7 +142,7 @@ function SuperAdmin() {
     Object.entries(registerForm).forEach(([k, v]) => data.append(k, v));
     if (registerLogo) data.append('company_logo', registerLogo);
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/registerCompany`, data);
+      await axios.post(`${import.meta.env.REACT_APP_API_URL}/registerCompany`, data);
       setMessage('Company registered successfully.');
       setRegisterForm({ username: '', phone: '', address: '', gmail: '', company_name: '', category: '', password: '', confirmPassword: '' });
       setRegisterLogo(null);
@@ -171,7 +171,7 @@ function SuperAdmin() {
       if (profile.email) data.append('email', profile.email);
       if (profile.newPassword) data.append('newPassword', profile.newPassword);
       if (profile.profileImg) data.append('avatar', profile.profileImg);
-      await axios.put(`${import.meta.env.VITE_API_URL}/admin/profile`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await axios.put(`${import.meta.env.REACT_APP_API_URL}/admin/profile`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
       setProfileMsg('Profile updated!');
       setShowProfileContent(false);
       fetchAdminProfile();
@@ -187,7 +187,7 @@ function SuperAdmin() {
     e.preventDefault();
     setAdminAddMsg('');
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/admin/admins`, adminAddForm);
+      await axios.post(`${import.meta.env.REACT_APP_API_URL}/admin/admins`, adminAddForm);
       setAdminAddMsg('Admin added.');
       setAdminAddForm({ username: '', email: '', password: '' });
       fetchActivity();
@@ -216,7 +216,7 @@ function SuperAdmin() {
     if (addUserImage) data.append('image', addUserImage);
     data.append('company_id', addUserCompanyId);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/registerUser`, data);
+      const res = await axios.post(`${import.meta.env.REACT_APP_API_URL}/registerUser`, data);
       setAddUserMsg(res.data.message || 'User successfully registered!');
     } catch (err) {
       setAddUserMsg(err.response?.data?.message || 'User registration failed.');
@@ -445,7 +445,7 @@ function SuperAdmin() {
                 {detailsCompany.company_logo && (
                   <div style={{ marginTop: 10 }}>
                     <b>Logo:</b><br />
-                    <img src={`${import.meta.env.VITE_API_URL}/uploads/${detailsCompany.company_logo}`} alt="Logo" style={{height:60, borderRadius:8, marginTop:8}} />
+                    <img src={`${import.meta.env.REACT_APP_API_URL}/uploads/${detailsCompany.company_logo}`} alt="Logo" style={{height:60, borderRadius:8, marginTop:8}} />
                   </div>
                 )}
               </div>

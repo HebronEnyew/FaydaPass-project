@@ -15,7 +15,7 @@ function IdentityCheck() {
     setLoading(true);
     setResult(null);
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/checkUser`, { ...form, company_id: company?.id });
+      const res = await axios.post(`${import.meta.env.REACT_APP_API_URL}/checkUser`, { ...form, company_id: company?.id });
       if (res.data.found) {
         setResult({ ...res.data.user, guest: !!res.data.guest, source: res.data.source });
       } else {
@@ -49,7 +49,7 @@ function IdentityCheck() {
                 <img src={result.photo} alt="Profile" style={{width: 100, height: 100, borderRadius: 8, objectFit: 'cover'}} />
               )}
               {result.image && !result.guest && (
-                <img src={`${import.meta.env.VITE_API_URL}/uploads/${result.image}`} alt="Profile" style={{width: 100, height: 100, borderRadius: 8, objectFit: 'cover'}} />
+                <img src={`${import.meta.env.REACT_APP_API_URL}/uploads/${result.image}`} alt="Profile" style={{width: 100, height: 100, borderRadius: 8, objectFit: 'cover'}} />
               )}
             </div>
             <div className="identity-basic-info">
